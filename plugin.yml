@@ -1,0 +1,39 @@
+name: SuperGun
+version: 1.0
+main: freack100.supergun.Main
+commands:
+  gunjoin:
+    description: Join in die SuperGun Lobby
+    usage: /gunjoin
+    permission: supergun.join
+    permission-message: lol
+  gunlobby:
+    description: Setze den Lobby Spawn
+    usage: /gunlobby
+    permission: supergun.setlobby
+    permission-message: lol
+  gunleave:
+    description: Verlasse die lobby
+    usage: /gunleave
+    permission: supergun.leave
+    permission-message: lol
+  gunred:
+    description: Setze den Roten Spawn
+    usage: /gunred
+    permission: supergun.redspawn
+    permission-message: lol
+  gunblue:
+    description: Setze den Blauen Spawn
+    usage: /gunblue
+    permission: supergun.bluespawn
+    permission-message: lol
+  gunspectate:
+    description: Gehe in die Beobachter lobby
+    usage: /gunspectate
+    permission: supergun.spectate
+    permission-message: lol
+  inventory:
+    description: lol
+    usage: /inventory
+    permission: lol
+    permission-message: lol
