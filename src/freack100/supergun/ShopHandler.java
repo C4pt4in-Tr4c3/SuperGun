@@ -78,40 +78,44 @@ public class ShopHandler implements Listener {
 		close(p);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onInventoryClickEvent(InventoryClickEvent evt){
 		Player p = (Player) evt.getWhoClicked();
-		if(opened.contains(p.getName())){
-			if(evt.getRawSlot() == evt.getSlot()){
+		if(this.opened.contains(p.getName())){
+
 				evt.setCancelled(true);
-				
-				
-				//Checking for specific Items
-				if(evt.getCursor().equals(g.getNormal())){
-					if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.normal.price")){
-						main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.normal.price"));
-						main.saveConfig();
-						main.reloadConfig();
-						p.getInventory().addItem(g.getNormal());
+					
+					//Checking for specific Items
+					if(evt.getCurrentItem().getType()==Material.STONE_HOE){
+						//if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.normal.price")){
+							//main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.normal.price"));
+							//main.saveConfig();
+							//main.reloadConfig();
+							p.getInventory().addItem(g.getNormal());
+							ch.sendMessage(p, "test");
+						//}
 					}
-				}
-				else if(evt.getCursor().equals(g.getAdvanced())){
-					if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.advanced.price")){
-						main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.advanced.price"));
-						main.saveConfig();
-						main.reloadConfig();
-						p.getInventory().addItem(g.getAdvanced());
+					else if(evt.getCurrentItem().getType()==(Material.IRON_HOE)){
+						if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.advanced.price")){
+							main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.advanced.price"));
+							main.saveConfig();
+							main.reloadConfig();
+							p.getInventory().addItem(g.getAdvanced());
+						}
 					}
-				}
-				else if(evt.getCursor().equals(g.getMaster())){
-					if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.master.price")){
-						main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.master.price"));
-						main.saveConfig();
-						main.reloadConfig();
-						p.getInventory().addItem(g.getMaster());
+					else if(evt.getCurrentItem().getType()==(Material.DIAMOND_HOE)){
+						if(main.config.getInt("players." + p.getName() + ".money") >= main.config.getInt("weapons.master.price")){
+							main.config.set("players." + p.getName() + ".money", main.config.getInt("players." + p.getName() + ".money") - main.config.getInt("weapons.master.price"));
+							main.saveConfig();
+							main.reloadConfig();
+							p.getInventory().addItem(g.getMaster());
+						}
 					}
-				}
-			}
+					p.updateInventory();
+					p.closeInventory();
+					close(p);
+			
 		}
 	}
 	
@@ -122,7 +126,7 @@ public class ShopHandler implements Listener {
 			if(block.getType().equals(Material.WALL_SIGN)|| block.getType().equals(Material.SIGN_POST)){
 				Sign s = (Sign) block.getState();
 				if(s.getLine(1).equals("[SHOP]")){
-					this.open(evt.getPlayer().getPlayer());
+					open(evt.getPlayer().getPlayer());
 				}
 			}
 		}
